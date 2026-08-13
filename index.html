@@ -135,24 +135,6 @@ h2 {
   margin-bottom: 1.5rem;
 }
 
-.kicker {
-  color: var(--paper-warm);
-  margin: 0 0 0.75rem;
-  font-weight: 700;
-}
-
-/* with no accent hue, a short rule does the eyebrow's structural work */
-.kicker::before {
-  content: "";
-  display: inline-block;
-  width: 1.75rem;
-  height: 2px;
-  margin-right: 0.7rem;
-  vertical-align: middle;
-  background: currentColor;
-  opacity: 0.65;
-}
-
 /* Dogpound-style hollow display type */
 .outline {
   color: transparent;
@@ -207,11 +189,6 @@ h2 {
 }
 .paper .btn-ghost:hover { background: rgba(35, 42, 58, 0.1); }
 
-/* warm accents stay on the dark sections; light sections use navy */
-.paper .kicker {
-  color: var(--ink);
-}
-
 .skip-link {
   position: absolute;
   top: -100vh;
@@ -247,21 +224,12 @@ h2 {
 }
 
 .nav-word {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
   font-family: var(--display);
   font-weight: 900;
   font-size: 1.4rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   text-decoration: none;
-}
-
-.paw {
-  width: 1.5rem;
-  height: 1.5rem;
-  fill: var(--paper-warm);
 }
 
 .nav-links {
@@ -405,15 +373,8 @@ html.menu-open body { overflow: hidden; }
   padding: 2.6rem clamp(1.25rem, 4vw, 3rem) 2.6rem;
 }
 
-.eyebrow {
-  color: var(--paper-warm);
-  font-weight: 500;
-  margin: 0 0 1.5rem;
-}
-
 /* hero copy floats above the resting heap; the outlined title's hollow
    letters still let the prints show through — collage without burial */
-.eyebrow,
 .hero-title,
 .hero-sub,
 .hero-cta {
@@ -1667,24 +1628,12 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="nav" id="top">
-    <a class="nav-word" href="#top">
-      <svg class="paw" viewBox="0 0 48 48" aria-hidden="true">
-        <ellipse cx="24" cy="30" rx="10" ry="8.5" />
-        <ellipse cx="10.5" cy="20" rx="4.5" ry="6" />
-        <ellipse cx="19.5" cy="13" rx="4.5" ry="6" />
-        <ellipse cx="28.5" cy="13" rx="4.5" ry="6" />
-        <ellipse cx="37.5" cy="20" rx="4.5" ry="6" />
-      </svg>
-      Buffy's&nbsp;Gym
-    </a>
+    <a class="nav-word" href="#top">Buffy's&nbsp;Gym</a>
+    <!-- the bar carries the essentials only; the menu overlay is the full index -->
     <nav class="nav-links" aria-label="Main">
-      <a href="#vibe">The vibe</a>
       <a href="#classes">Classes</a>
       <a href="#books">Books</a>
       <a href="#team">Team</a>
-      <a href="#events">Events</a>
-      <a href="#playlist">Playlist</a>
-      <a href="#merch">Merch</a>
       <a href="#visit">Visit</a>
     </nav>
     <!-- TODO: point at the real booking flow (current site's Book a Class link) -->
@@ -1715,7 +1664,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   <main id="main">
     <!-- ============================ HERO ============================ -->
     <section class="hero">
-      <p class="eyebrow mono" data-reveal>Toronto&nbsp;·&nbsp;College St&nbsp;·&nbsp;Classes capped at 8</p>
       <h1 class="hero-title" data-reveal>
         <span class="line outline">You got that</span>
         <span class="line"><em class="dog">dog</em> in ya.</span>
@@ -1765,7 +1713,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     <!-- ============================ VIBE ============================ -->
     <section class="vibe paper" id="vibe">
       <div class="wrap">
-        <p class="kicker mono" data-reveal>The vibe</p>
         <h2 data-reveal>Not a big box.<br />A living room with barbells.</h2>
         <div class="vibe-cols" data-reveal>
           <p>
@@ -1807,8 +1754,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
          prefers-reduced-motion by leaving it paused on the poster frame. -->
     <section class="vitrine" id="room">
       <div class="wrap">
-        <p class="kicker mono" data-reveal>The rooms</p>
-
         <div class="room" data-reveal>
           <h2 class="room-title outline">Come on in.</h2>
 
@@ -1888,7 +1833,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     <!-- ============================ CLASSES ============================ -->
     <section class="classes" id="classes">
       <div class="wrap">
-        <p class="kicker mono" data-reveal>Classes</p>
         <h2 data-reveal>The board</h2>
         <div class="board" data-reveal>
           <div class="board-row">
@@ -1932,7 +1876,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
          <img class="book-page" data-cap="..."> below. With their permission. -->
     <section class="books paper" id="books">
       <div class="wrap">
-        <p class="kicker mono" data-reveal>The books</p>
         <h2 data-reveal>Everybody gets a book.</h2>
         <p class="books-intro" data-reveal>
           Paper, not an app. You write down every set you lift; your coach writes
@@ -1988,7 +1931,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
           <figcaption>Buffy — Chief Encouragement Officer</figcaption>
         </figure>
         <div class="buffy-copy">
-          <p class="kicker mono" data-reveal>The boss</p>
           <h2 data-reveal>Meet Buffy.</h2>
           <p data-reveal>
             She takes the job seriously: greets everyone at the door, supervises warm-ups
@@ -2002,7 +1944,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     <!-- ============================ TEAM ============================ -->
     <section class="team" id="team">
       <div class="wrap">
-        <p class="kicker mono" data-reveal>The team</p>
         <h2 data-reveal>The humans.</h2>
         <p class="team-intro" data-reveal>
           Chris and Vanessa own the place — in business and in life — and both coach.
@@ -2057,7 +1998,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     <!-- ============================ EVENTS ============================ -->
     <section class="events" id="events">
       <div class="wrap">
-        <p class="kicker mono" data-reveal>Events</p>
         <h2 data-reveal>It's not just lifting.</h2>
         <div class="events-grid">
           <div>
@@ -2085,7 +2025,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     <section class="playlist" id="playlist">
       <div class="wrap playlist-grid">
         <div class="playlist-copy">
-          <p class="kicker mono" data-reveal>The soundtrack</p>
           <h2 data-reveal>Everybody gets aux.</h2>
           <p data-reveal>
             One collaborative playlist, open to the whole gym. Hear something good in
@@ -2135,7 +2074,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     <!-- ============================ MERCH ============================ -->
     <section class="merch" id="merch">
       <div class="wrap">
-        <p class="kicker mono" data-reveal>The merch table</p>
         <h2 data-reveal>Wear the dog.</h2>
         <p class="merch-intro" data-reveal>
           Tees and gym bags, sold right at the front desk. Grab one after class, or DM
@@ -2162,7 +2100,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     <!-- ============================ VISIT ============================ -->
     <section class="visit" id="visit">
       <div class="wrap">
-        <p class="kicker mono" data-reveal>Visit</p>
         <h2 data-reveal>Come meet the pack.</h2>
         <div class="visit-grid">
           <div class="visit-info" data-reveal>
