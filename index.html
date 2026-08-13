@@ -71,7 +71,10 @@ body {
   font-family: var(--body);
   font-size: 1.0625rem;
   line-height: 1.6;
+  /* the fan and the marquee both bleed past the edges by design; clip is the
+     stricter of the two — it also stops a flung print from being scrolled to */
   overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -487,11 +490,14 @@ html.menu-open body { overflow: hidden; }
     scale(var(--sc, 1));
   pointer-events: auto;
   cursor: grab;
-  /* pan-y, not none: an up/down swipe still scrolls the page, but a sideways
-     drag is handed to us — and once it is, we can move the print freely */
-  touch-action: pan-y;
+  /* none, not pan-y: pan-y let the browser claim every up/down gesture, so on
+     a phone a print could only be flung sideways — dragging it up or down
+     scrolled the page and cancelled the drag. We own the gesture on the print
+     itself; the fan is a ~20% band, so the rest of the hero still scrolls. */
+  touch-action: none;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none;
   transition: box-shadow 0.2s ease;
   /* layered shadow so the prints read as physical objects in a stack */
   box-shadow:
@@ -2275,9 +2281,9 @@ const layoutFan = (deal = false) => {
 
 // ---------------------------------------------------------------------------
 // Draggable polaroids — mouse and touch alike.
-// touch-action: pan-y on the prints means a vertical swipe still scrolls the
-// page; the browser hands us the gesture only once it's clearly a sideways
-// drag, and from then on the print follows the finger in both axes.
+// touch-action: none on the prints hands us the whole gesture, so a finger
+// drags a print in any direction. Scrolling still works everywhere else in
+// the hero — only a gesture that starts on a print belongs to us.
 // ---------------------------------------------------------------------------
 const mobile = window.matchMedia("(max-width: 860px)");
 let topZ = 60; // above the fan's resting z-range (20-40)
@@ -2290,9 +2296,9 @@ const bindDrag = (el) => {
   let dragging = false;
 
   el.addEventListener("pointerdown", (e) => {
-    // never preventDefault on touch: that would kill the browser's own
-    // scroll handling before it has decided whether this is a scroll
-    if (e.pointerType === "mouse") e.preventDefault();
+    // safe for touch too now that touch-action is none — the browser isn't
+    // waiting to decide whether this gesture is a scroll
+    e.preventDefault();
     dragging = true;
     try {
       el.setPointerCapture(e.pointerId);
