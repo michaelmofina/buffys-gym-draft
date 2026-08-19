@@ -40,17 +40,19 @@
    ========================================================================== */
 
 :root {
-  --ink: #232a3a;      /* navy ink (the dark paint blue, deepened) */
-  --ink-soft: #2e3546;
-  --paper: #bfcdda;      /* powder blue (the light paint) */
-  --paper-warm: #f6f1e6; /* cream lives on only where it is physically true: print frames, inputs */
-  --paper-shadow: #9fb2c2;
-  /* No accent hue: the gym's two paint blues plus cream. Emphasis comes from
-     brightness, not colour — which leaves the photographs the only colour on
-     the page. Cream lifts on navy; navy lifts on powder. */
-  --powder-deep: #a9bccd;  /* CTA hover */
-  --tape: rgba(214, 205, 188, 0.8);
-  --chalk: #e8ecf2;
+  --ink: #1b1a18;        /* warm near-black — type, and the dark panels */
+  --ink-soft: #2b2825;
+  --ground: #f4f1ea;     /* warm bone — the page itself */
+  --band: #ebe5d8;       /* soft grey-sand — the alternating sections */
+  /* No accent hue at all. The page is bone, the type is ink, and the only
+     colour anywhere comes out of the photographs. Emphasis is weight and
+     contrast, never hue. */
+  --paper: #f4f1ea;      /* the light colour, for type sitting on dark panels */
+  --paper-warm: #fbf9f5; /* the lightest surface: print frames, inputs, cards */
+  --paper-shadow: #ddd7ca; /* hairlines */
+  --ink-hover: #33302b;    /* solid-button hover */
+  --tape: rgba(199, 188, 166, 0.75);
+  --chalk: #e8e2d6;   /* the portraits are chalk on a dark photo box */
 
   --display: "Big Shoulders Display", "Arial Narrow", sans-serif;
   --hand: "Caveat", cursive;
@@ -66,8 +68,8 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--ground);
+  color: var(--ink);
   font-family: var(--body);
   font-size: 1.0625rem;
   line-height: 1.6;
@@ -84,7 +86,7 @@ body::after {
   position: fixed;
   inset: -50%;
   background: var(--grain);
-  opacity: 0.09;
+  opacity: 0.05;
   pointer-events: none;
   z-index: 2000;
   animation: grain-shift 0.9s steps(4) infinite;
@@ -141,16 +143,22 @@ h2 {
 /* Dogpound-style hollow display type */
 .outline {
   color: transparent;
-  -webkit-text-stroke: 2px var(--paper);
+  -webkit-text-stroke: 2px var(--ink);
 }
 
 .paper .outline {
   -webkit-text-stroke-color: var(--ink);
 }
 
+/* this one sits on the photo's dark scrim, so it keeps the light stroke */
+.room-title.outline {
+  -webkit-text-stroke-color: var(--paper);
+}
+
 @supports not (-webkit-text-stroke: 1px black) {
-  .outline { color: var(--paper); }
+  .outline { color: var(--ink); }
   .paper .outline { color: var(--ink); }
+  .room-title.outline { color: var(--paper); }
 }
 
 /* ---------------- buttons ---------------- */
@@ -164,33 +172,33 @@ h2 {
   text-transform: uppercase;
   text-decoration: none;
   padding: 0.7rem 1.5rem 0.8rem;
-  border: 2px solid var(--paper);
+  border: 2px solid var(--ink);
   cursor: pointer;
   /* hovers change colour only — buttons stay put */
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .btn-solid {
-  background: var(--paper-warm);
-  border-color: var(--paper-warm);
-  color: var(--ink);
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--ground);
 }
 .btn-solid:hover {
-  background: var(--powder-deep);
-  border-color: var(--powder-deep);
+  background: var(--ink-hover);
+  border-color: var(--ink-hover);
 }
 
 .btn-ghost {
   background: transparent;
-  color: var(--paper);
+  color: var(--ink);
 }
-.btn-ghost:hover { background: rgba(191, 205, 218, 0.14); }
+.btn-ghost:hover { background: rgba(27, 26, 24, 0.08); }
 
 .paper .btn-ghost {
   border-color: var(--ink);
   color: var(--ink);
 }
-.paper .btn-ghost:hover { background: rgba(35, 42, 58, 0.1); }
+.paper .btn-ghost:hover { background: rgba(27, 26, 24, 0.08); }
 
 .skip-link {
   position: absolute;
@@ -221,9 +229,9 @@ h2 {
   align-items: center;
   gap: 2rem;
   padding: 0.85rem clamp(1.25rem, 4vw, 3rem);
-  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  background: color-mix(in srgb, var(--ground) 88%, transparent);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(191, 205, 218, 0.16);
+  border-bottom: 1px solid rgba(27, 26, 24, 0.12);
 }
 
 .nav-word {
@@ -253,7 +261,7 @@ h2 {
 
 .nav-links a:hover {
   opacity: 1;
-  color: var(--paper-warm);
+  color: var(--ink);
 }
 
 .nav-book {
@@ -268,8 +276,8 @@ h2 {
   align-items: center;
   gap: 0.55rem;
   background: none;
-  border: 2px solid var(--paper);
-  color: var(--paper);
+  border: 2px solid var(--ink);
+  color: var(--ink);
   font-family: var(--mono);
   font-size: 0.7rem;
   letter-spacing: 0.08em;
@@ -287,7 +295,7 @@ h2 {
 
 .menu-btn-bars span {
   height: 2px;
-  background: var(--paper-warm);
+  background: var(--ink);
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
@@ -345,6 +353,23 @@ h2 {
 .menu-footer .mono { margin: 0; opacity: 0.7; }
 .menu-footer .mono a { color: var(--paper); }
 
+/* the overlay is the one dark surface left on the page, so everything
+   sitting on it inverts: light type, light buttons */
+.menu,
+.menu .mono {
+  color: var(--paper);
+}
+
+.menu .btn-solid {
+  background: var(--paper-warm);
+  border-color: var(--paper-warm);
+  color: var(--ink);
+}
+.menu .btn-solid:hover {
+  background: var(--paper);
+  border-color: var(--paper);
+}
+
 html.menu-open,
 html.menu-open body { overflow: hidden; }
 
@@ -395,7 +420,7 @@ html.menu-open body { overflow: hidden; }
 
 .hero-title .dog {
   font-style: normal;
-  color: var(--paper-warm);
+  color: var(--ink);
   -webkit-text-stroke: 0;
   position: relative;
 }
@@ -441,10 +466,10 @@ html.menu-open body { overflow: hidden; }
   font-family: var(--mono);
   font-size: 10.5px;
   letter-spacing: 0.18em;
-  fill: var(--paper-warm);
+  fill: var(--ink);
 }
 
-.stamp-paw { fill: var(--paper-warm); }
+.stamp-paw { fill: var(--ink); }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -599,10 +624,10 @@ html.menu-open body { overflow: hidden; }
 
 .marquee {
   overflow: hidden;
-  border-top: 2px solid var(--paper-warm);
-  border-bottom: 2px solid var(--paper-warm);
-  background: var(--paper-warm); /* a paper strip across the navy */
-  color: var(--ink);
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  background: var(--ink); /* an ink strip across the bone */
+  color: var(--ground);
   padding: 0.55rem 0;
 }
 
@@ -625,7 +650,7 @@ html.menu-open body { overflow: hidden; }
 /* ---------------- paper sections ---------------- */
 
 .paper {
-  background: var(--paper);
+  background: var(--band);
   color: var(--ink);
 }
 
@@ -691,7 +716,7 @@ html.menu-open body { overflow: hidden; }
   position: relative;
   background: #1c1916;
   border: 2px solid rgba(242, 236, 223, 0.22);
-  box-shadow: 10px 10px 0 rgba(191, 205, 218, 0.22);
+  box-shadow: 10px 10px 0 rgba(27, 26, 24, 0.16);
 }
 
 .room-stage {
@@ -707,7 +732,7 @@ html.menu-open body { overflow: hidden; }
   height: 42%;
   z-index: 2;
   pointer-events: none;
-  background: linear-gradient(to bottom, rgba(35, 42, 58, 0.72), rgba(35, 42, 58, 0));
+  background: linear-gradient(to bottom, rgba(27, 26, 24, 0.72), rgba(27, 26, 24, 0));
 }
 
 .room-slide {
@@ -791,19 +816,19 @@ html.menu-open body { overflow: hidden; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 0.55rem 1rem;
-  border: 2px solid rgba(191, 205, 218, 0.3);
+  border: 2px solid rgba(27, 26, 24, 0.28);
   background: none;
-  color: var(--paper);
+  color: var(--ink);
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.room-tabs button:hover { border-color: var(--paper-warm); color: var(--paper-warm); }
+.room-tabs button:hover { border-color: var(--ink); color: var(--ink); }
 
 .room-tabs button[aria-selected="true"] {
-  background: var(--paper-warm);
-  border-color: var(--paper-warm);
-  color: var(--ink);
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--ground);
 }
 
 /* grain over the photo so it sits in the same world as the prints */
@@ -914,8 +939,8 @@ html.menu-open body { overflow: hidden; }
   display: grid;                 /* every spread shares one cell */
   cursor: pointer;               /* click the left/right half to turn */
   box-shadow:
-    0 2px 4px rgba(35, 42, 58, 0.18),
-    0 26px 54px rgba(35, 42, 58, 0.32);
+    0 2px 4px rgba(27, 26, 24, 0.18),
+    0 26px 54px rgba(27, 26, 24, 0.32);
 }
 
 .book-page {
@@ -945,13 +970,13 @@ html.menu-open body { overflow: hidden; }
   inset: 0;
   pointer-events: none;
   background: linear-gradient(to right,
-    rgba(35, 42, 58, 0.14) 0%,
-    rgba(35, 42, 58, 0) 6%,
-    rgba(35, 42, 58, 0) 46%,
-    rgba(35, 42, 58, 0.12) 50%,
-    rgba(35, 42, 58, 0) 54%,
-    rgba(35, 42, 58, 0) 94%,
-    rgba(35, 42, 58, 0.14) 100%);
+    rgba(27, 26, 24, 0.14) 0%,
+    rgba(27, 26, 24, 0) 6%,
+    rgba(27, 26, 24, 0) 46%,
+    rgba(27, 26, 24, 0.12) 50%,
+    rgba(27, 26, 24, 0) 54%,
+    rgba(27, 26, 24, 0) 94%,
+    rgba(27, 26, 24, 0.14) 100%);
 }
 
 .book-arrow {
@@ -1015,9 +1040,9 @@ html.menu-open body { overflow: hidden; }
 .classes { padding: 3.5rem 0 7.5rem; }
 
 .board {
-  border: 2px solid rgba(242, 236, 223, 0.25);
-  background: var(--ink-soft);
-  box-shadow: 10px 10px 0 rgba(191, 205, 218, 0.22);
+  border: 2px solid var(--ink);
+  background: var(--paper-warm);
+  box-shadow: 10px 10px 0 rgba(27, 26, 24, 0.16);
 }
 
 .board-row {
@@ -1025,14 +1050,14 @@ html.menu-open body { overflow: hidden; }
   grid-template-columns: minmax(14rem, 18rem) 1fr;
   gap: 2rem;
   padding: 2rem clamp(1.5rem, 3vw, 2.75rem);
-  border-bottom: 1px dashed rgba(242, 236, 223, 0.25);
+  border-bottom: 1px dashed rgba(27, 26, 24, 0.25);
   align-items: baseline;
 }
 
 .board-name h3 {
   font-size: clamp(1.9rem, 3.2vw, 2.6rem);
   font-weight: 800;
-  color: var(--paper-warm);
+  color: var(--ink);
 }
 
 .board-name .mono {
@@ -1253,7 +1278,7 @@ html.menu-open body { overflow: hidden; }
    section still reads complete anywhere the iframe is blocked */
 .embed {
   margin-top: 3.5rem;
-  border: 2px solid rgba(242, 236, 223, 0.22);
+  border: 2px solid rgba(27, 26, 24, 0.18);
   display: none;
 }
 
@@ -1277,12 +1302,12 @@ html.menu-open body { overflow: hidden; }
 }
 
 .merch-intro a {
-  color: var(--paper);
-  text-decoration-color: var(--paper-warm);
+  color: var(--ink);
+  text-decoration-color: var(--paper-shadow);
   text-underline-offset: 3px;
 }
 
-.merch-intro a:hover { color: var(--paper-warm); }
+.merch-intro a:hover { color: var(--ink); }
 
 /* grid, not flex, so each print's width equals its containing block —
    which keeps the percentage Instax frame accurate */
@@ -1323,23 +1348,23 @@ html.menu-open body { overflow: hidden; }
   text-transform: uppercase;
   line-height: 1.05;
   margin: 0 0 1.25rem;
-  color: var(--paper-warm);
+  color: var(--ink);
 }
 
 .visit-info p { max-width: 26rem; }
 
 .visit-links a {
-  color: var(--paper);
-  text-decoration-color: var(--paper-warm);
+  color: var(--ink);
+  text-decoration-color: var(--paper-shadow);
   text-underline-offset: 3px;
 }
 
-.visit-links a:hover { color: var(--paper-warm); }
+.visit-links a:hover { color: var(--ink); }
 
 .signup label {
   display: block;
   margin-bottom: 0.9rem;
-  color: var(--paper-warm);
+  color: var(--ink);
   font-weight: 700;
 }
 
@@ -1356,31 +1381,31 @@ html.menu-open body { overflow: hidden; }
   padding: 0.75rem 1rem;
   background: var(--paper-warm);
   color: var(--ink);
-  border: 2px solid var(--paper-warm);
+  border: 2px solid var(--paper-shadow);
   outline: none;
 }
 
 .signup input:focus {
-  border-color: var(--paper-warm);
+  border-color: var(--ink);
 }
 
 .signup .btn { font-size: 1rem; }
 
 .signup-note {
   margin-top: 1rem;
-  color: var(--paper-warm);
+  color: var(--ink);
 }
 
 /* ---------------- footer ---------------- */
 
 .footer {
-  border-top: 1px solid rgba(242, 236, 223, 0.14);
+  border-top: 1px solid rgba(27, 26, 24, 0.12);
   padding: 2rem clamp(1.25rem, 4vw, 3rem);
   text-align: center;
   opacity: 0.7;
 }
 
-.footer a { color: var(--paper); }
+.footer a { color: var(--ink); }
 
 /* draft-only pointer to the side experiment — remove with the markup */
 .footer-lab {
@@ -1393,8 +1418,8 @@ html.menu-open body { overflow: hidden; }
 .footer-lab:hover { opacity: 0.8; }
 
 .footer-lab a {
-  color: var(--paper);
-  text-decoration-color: rgba(191, 205, 218, 0.4);
+  color: var(--ink);
+  text-decoration-color: rgba(27, 26, 24, 0.3);
   text-underline-offset: 3px;
 }
 
@@ -1462,7 +1487,7 @@ html.menu-open body { overflow: hidden; }
 
 /* focus */
 a:focus-visible, button:focus-visible, input:focus-visible {
-  outline: 3px solid var(--paper-warm);
+  outline: 3px solid var(--ink);
   outline-offset: 3px;
 }
 
