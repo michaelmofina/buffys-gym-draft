@@ -1,3 +1,4 @@
+<meta charset="utf-8" />
 <title>Buffy's Gym — draft site</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
@@ -479,7 +480,7 @@ html.menu-open body { overflow: hidden; }
 /* fanned row of prints, after raindrop.ai/careers: a single overlapping arc
    sitting between the headline and the copy */
 .polaroids {
-  --card-w: clamp(120px, 12.8vw, 186px);
+  --card-w: clamp(180px, 18vw, 260px);
   --arc: 15px; /* how far the outer prints dip below the middle one */
   position: relative;
   width: 100%;
@@ -498,7 +499,7 @@ html.menu-open body { overflow: hidden; }
   /* Instax mini geometry: 54 × 86 mm card, 46 × 62 mm image, thick bottom
      strip. Percentage padding is all relative to width, so it stays exact. */
   padding: 9.26% 7.41% 0;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 5px rgba(22, 19, 15, 0.10), 0 7px 15px rgba(22, 19, 15, 0.07);
   transform: translate(var(--tx), var(--ty)) rotate(var(--rot, 0deg));
   color: var(--ink);
 }
@@ -525,11 +526,10 @@ html.menu-open body { overflow: hidden; }
   -webkit-user-select: none;
   -webkit-touch-callout: none;
   transition: box-shadow 0.2s ease;
-  /* layered shadow so the prints read as physical objects in a stack */
+  /* Short, light contact shadows stay quiet when twenty prints overlap. */
   box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.45),
-    0 7px 14px rgba(0, 0, 0, 0.38),
-    0 20px 44px rgba(0, 0, 0, 0.45);
+    0 1px 2px rgba(22, 19, 15, 0.13),
+    0 4px 8px rgba(22, 19, 15, 0.07);
 }
 
 /* the whole print is a drag handle — the photo must never start a native
@@ -556,17 +556,15 @@ html.menu-open body { overflow: hidden; }
   transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.polaroid.dragging {
+.polaroids .polaroid.dragging {
   cursor: grabbing;
   box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.4),
-    0 16px 28px rgba(0, 0, 0, 0.45),
-    0 34px 64px rgba(0, 0, 0, 0.55);
+    0 2px 4px rgba(22, 19, 15, 0.12),
+    0 10px 20px rgba(22, 19, 15, 0.13);
 }
 
-/* tape (merch and the Buffy portrait keep it; the hero fan is bare) */
-.merch-row .polaroid::before,
-.polaroid-big::before {
+/* Tape stays on the merchandise prints. */
+.merch-row .polaroid::before {
   content: "";
   position: absolute;
   top: -10px;
@@ -904,7 +902,7 @@ html.menu-open body { overflow: hidden; }
   transform: translate(-50%, -50%) rotate(var(--rot, -2deg));
   width: min(250px, 62%);
   z-index: 4;
-  box-shadow: 0 26px 52px rgba(0, 0, 0, 0.65), 0 6px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 28px rgba(22, 19, 15, 0.22), 0 3px 8px rgba(22, 19, 15, 0.12);
   cursor: pointer;
 }
 
@@ -1094,10 +1092,8 @@ html.menu-open body { overflow: hidden; }
   position: relative;
   width: 100%;
   padding-bottom: 0.6rem;
-  box-shadow: 0 14px 34px rgba(22, 19, 15, 0.3);
+  box-shadow: 0 6px 16px rgba(22, 19, 15, 0.13);
 }
-
-.polaroid-big figcaption { font-size: 1.5rem; }
 
 .buffy-copy p { max-width: 32rem; }
 
@@ -1130,7 +1126,7 @@ html.menu-open body { overflow: hidden; }
 .team-card {
   position: relative;
   width: 100%;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 3px 10px rgba(22, 19, 15, 0.12);
 }
 
 .team-card::before {
@@ -1321,13 +1317,13 @@ html.menu-open body { overflow: hidden; }
 .merch-row .polaroid {
   position: relative;
   width: 100%;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 3px 10px rgba(22, 19, 15, 0.12);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .merch-row .polaroid:hover {
   transform: translateY(-6px) rotate(0deg);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 18px rgba(22, 19, 15, 0.16);
 }
 
 /* ---------------- visit ---------------- */
@@ -1462,63 +1458,6 @@ html.menu-open body { overflow: hidden; }
 .post a:hover h3 { text-decoration: underline; text-underline-offset: 3px; }
 .post p { margin: 0; font-size: 0.9375rem; opacity: 0.78; }
 
-/* ---------------- the chart of weights ---------------- */
-
-.prs {
-  margin: clamp(2.5rem, 5vw, 4rem) 0 0;
-  padding: clamp(1.5rem, 3vw, 2.25rem);
-  background: var(--paper-warm);
-  border: 2px solid var(--ink);
-}
-
-.prs figcaption { margin-bottom: 1.5rem; }
-
-.prs h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 800; margin: 0 0 0.4rem; }
-.prs figcaption p { margin: 0; font-size: 0.9375rem; opacity: 0.7; }
-
-.pr-list { margin: 0; display: grid; gap: 0.7rem; }
-
-.pr {
-  display: grid;
-  grid-template-columns: minmax(7rem, 9rem) 1fr auto;
-  align-items: center;
-  gap: 0 1rem;
-}
-
-.pr dt {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-/* the bar is the middle grid cell, filled to --pct */
-.pr::after {
-  content: "";
-  grid-column: 2;
-  height: 14px;
-  width: var(--pct, 50%);
-  background: var(--ink);
-}
-
-.pr dd {
-  grid-column: 3;
-  margin: 0;
-  font-family: var(--mono);
-  font-size: 0.8125rem;
-  font-variant-numeric: tabular-nums;
-  opacity: 0.7;
-}
-
-.pr dd span { font-size: 1rem; font-weight: 700; opacity: 1; }
-
-@media (max-width: 620px) {
-  .pr { grid-template-columns: 1fr auto; }
-  .pr dt { grid-column: 1; }
-  .pr dd { grid-column: 2; }
-  .pr::after { grid-column: 1 / -1; grid-row: 2; }
-}
-
 /* ---------------- Buffy's ball ---------------- */
 
 .ball-layer {
@@ -1613,7 +1552,7 @@ html.menu-open body { overflow: hidden; }
 .polaroids .square-print {
   padding: calc(var(--card-w) * 0.06944) calc(var(--card-w) * 0.06944) calc(var(--card-w) * 0.26389);
 }
-.polaroid-big.square-print { padding: 6.944% 6.944% 0.6rem; }
+.polaroid-big.square-print { padding: 6.944% 6.944% 26.389%; }
 .room-pop.square-print { padding: 17px 17px 0; }
 .actual-photo img { display: block; filter: none; }
 .actual-photo::before,
@@ -2123,24 +2062,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
         <p class="books-note mono" data-reveal>(these are mine — members' own books go here, with permission)</p>
 
-        <!-- the chart of weights: real numbers off the PR page above, so the
-             book and the graph are the same information twice. Swap in a
-             member's numbers when one volunteers theirs. -->
-        <figure class="prs" data-reveal>
-          <figcaption>
-            <h3>What a year in the book looks like</h3>
-            <p>Every number below is off that first spread &mdash; one member, twelve months.</p>
-          </figcaption>
-          <dl class="pr-list">
-            <div class="pr" style="--pct: 100%"><dt>Sumo deadlift</dt><dd><span>220</span> lb</dd></div>
-            <div class="pr" style="--pct: 97.7%"><dt>Deadlift</dt><dd><span>215</span> lb</dd></div>
-            <div class="pr" style="--pct: 86.4%"><dt>Back squat</dt><dd><span>190</span> lb</dd></div>
-            <div class="pr" style="--pct: 75%"><dt>Front squat</dt><dd><span>165</span> lb</dd></div>
-            <div class="pr" style="--pct: 52.3%"><dt>Bench press</dt><dd><span>115</span> lb</dd></div>
-            <div class="pr" style="--pct: 45.5%"><dt>Push jerk</dt><dd><span>100</span> lb</dd></div>
-            <div class="pr" style="--pct: 38.6%"><dt>Strict press</dt><dd><span>85</span> lb</dd></div>
-          </dl>
-        </figure>
       </div>
     </section>
 
@@ -2151,7 +2072,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
           <div class="photo">
             <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAQDAwMDAgQDAwMEBAQFBgoGBgUFBgwICQcKDgwPDg4MDQ0PERYTDxAVEQ0NExoTFRcYGRkZDxIbHRsYHRYYGRj/2wBDAQQEBAYFBgsGBgsYEA0QGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBj/wAARCABwAHIDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDzW38ED4g+NV1K5uHg0+ONfN2nbnuVzXcal8QPCngG0i0DwxDY+d9zfkJGp9WbH61ymv6pPouhR6Hp7PCv2YM7L1YkZ5rykGG9lWeaOVZI2znPJ59a0mtTRHtnhv4hXWpX80t626Q90nLqAfSuqt9em1O8Wzgv3deru2PlH1715J4bkEt0kGj6PIZ34Zm+6B7YrvdauYdG037HbKkc2wGd0HU+lTOahG7O7BYd16iihnirxYltbvpml7YYQTvZOC59c15/5GpXkT3kNpPJCDzIqEiohdG716K25laRslM4yo7GvaPBk+m3GoXsu77DYQxL53OEGByoFea0695SdkfROvHDP2VJXa3PFbqzvbQKLu2lhDjK71xuFQRwWrxymS3V5GXarkkFPcV2/jTxEddu5baARy2sDnypVjCcZrkY9iR4IBrkcvZS9xnofV44inarHU88uXK3LxsSSGxzSQp5rCMHGea7DWtDS/iEsIWOZckHb972rmIrcW0IMikStkHPA9K9bD1VVR8XjsHLCztLboQG1ZTxJj3pjrcB8eezZ/2qsSShnGwKnsM4/Wo8DIwa3sjiRFCzwXCybnVlOQyMQQfrUl1qF3fTb7y5lnI7yMSaZLknjtURUkGpZQ4M2P4f++aKj496KV2M9B8UnWrmS0vprWZIZYEKvjKkYHeuVtp511WOBYSPMcKD+Ne23Fxp7+AvtmogR20SrEgYdTivIr63sfPe/wBOcuIyTtzn8RWr3IaOhHjfUdO1iPRfD8YhVXUPMqAu+D8xJ9K1tY1Oe7DTSPlpCSxrz3RNcnFyluRsLuOcAkr6Z611V0xNv74rzcdUs0j6bIoLknLqVdMkijupLx2zJKNqewrobW5nk057YXJSMnJTJBY+prWm8LaNpXww0u/8szXlwwdpmIyox93g8D8KxrOIXE7S+aYz0HGQa56tRq0Uejl1Fcsqklq2JujjYpLhl7jPOfamMlvIuYRg9806e0YTks4kB5ygPPuKBbs0ORhFPIPr+Ncp7CKsr4YHqBxg1zfiVcPFIq7cg4AHvW+N/mEvzis7WYRPpjAuqbTkM3atsLU5KiPIziiqlB90cmX3dePeoZFZXBUk/Wtu18K6lqEBlsb3Tp1HVfP2Mo9SGAqve6Dc2BWK4vLEyNggLcg7frxXuXufEGY5+XJP1qPtxUz2lxuIhT7Rj/nl836darZKSlHRldeCrDBH4VLGhcH+6aKXd7UVIzorjxPd3Xgj+xrhi6eYJASeeBjFc7HcyrMxRxGgBHzZ+b2HvTojG1nL82HAyvvUUkM8cXnMrQlhkjsRWj0INiy0O6u9Pk1mzm3iBh5kf8Sj19xXTQ3C3dgrLycYI9/euO0vxBeaWQLYqqEbZIzysi9wa1IfE1pHdedDaPa5YNhHyFI6EVx4qh7SN0epleO+rTtLZnWjVby50aHS5I4Hjt8mOQLhwPTI6iprHU/IjMRjLAnjJxisaC7iul86CVXUnJINWAMEcc9c140uaL1Pt6Lpyh7mxu3N2JXMokG8AL61Vnu0Y/KFQkcqo4qiZDuyTg+3FPjuEiYyPF5hA+UHoD60+ZlOy2EYkscHmszWpPL0mXd34rQ3k/MVIFYXiC4b7GIyqKrH15rXDx5po8vMqqjQdzm1uLrYY0ndUP8ACGIFRMhPLPuPfNKDxz+FKW+XDAH3r3D4k1vCVtf3HjC0Ng0SzRuHBncohx2JrQ+It7f3njCSbUrCOzucfOsZBVvcEda5621S6tNywP8AK42sPUVXubqW8n86eV5HPdzk0XCwzf8A7VFM2n0FFTcqwkcgGR61pSagZ9OEEgUMFwGUdfrWMr9MYqZJM/KwBrW9zMRY9r4b9KmMaYyF/Ko2zkH09KkG4xhtrbSSAexx15/EUElu0vGs5C8WVJUjjit/TtfheNYrxtrjjzB0P19K5TvzR2rGrQhU3OzC46th37jPREuI5RmEq4H8SnNNFwoPKl3JwFHrXBQTyRHdG5Q+xxmnPd3D8maQ455Y8GuL6hbVM9Z53NrWOp0Fx4knju5I/IU7TtG49D9Kwru+uLucyzNuP8h6VXLs7FmYsT60fMeldVOlGGx5NbFVKuknoBkx2NHBG4gk00ru6cmnfw7a1OcaQQxz8uORQAdvJAxUqT3Vu5eKZ0LKyZXglWGGXPoRxiqzEluh/KlcaJMqe360VDh/SikMhQ46U8HnmohyeCDUig7ea0MyUsCtCk5C5OAckDt6/wBKjDcj0p4dpAis2FUbRx0GSfx5NADiy78EsFyOcZIHrin5IiVtp2kkBiMZx1/nUJI70oXKgA574B6U7hYfng5FN3kcU3JAo6jmpepViQOc8dakVgetQDrzTxwcZqbgSZGB/Sl5IyPzpme1OBPTNFx2EOc8sRTC7DG0j6ipTuGT0HvULBdq7Sd3OQRx+HNJjQzJ9aKMqON6UUrjsVwOMinKxA5JxVdJ42YASKM+9ShnWTbuGenBFasyJzlS4XKq3GCe2cijOW+XkntUa/fOTjB5ANSFQQxDAnrilcBzgqoDDBPuOabuJxkj2pY1TzBvDMvOQhA+nODTuiBcqD39TU3sVYZQPetrTfCfiLWgv9kaBql4eAfJtXYE+xArs9L+AXxV1Ugr4aFkh53X1wkWPqASf0pXHY82TO0gkHPrUqgjhuK9/wBI/ZQ8UXCp/bPiXTLJV/ht4nmYfj8vNd1pf7K/g+1XOra5q1+2ckxlIR+QB/nmpckOx8k7MjjP+NJs3ShEX5v7q8mvurSvgV8LdKKsnheG6cc77yR58/gxIrtNN8NeHtJQJpeiadZAdPIt0T+QqecLH5+6Z4I8aayR/ZfhXWLpT0ZLN9p/EgCuy039nn4raptL6DBYq3Vry6RMfULuP6V9ybTgEJx6qKo3esaRYc32qWdtjp5s6jP4ZzU+07js+h8lL+yn48KAtq2hg45HmyH/ANp0V9QHx94NVip8SWmRx/F/8TRU+1Q+WR4Fc/sYeGgubHx1rMeOAJ7aKT+WKx7j9jLkLbfEebjp5mnA/wApK+sicioWxn1rR1GZ8qPkeT9jjxEjf6L8RLFh/wBNLF1/k5q7Y/ska3D/AMf3jG3nGeVt4zFn8WDV9WduaUkEcYz7Ue0YcqPnrTP2cdM0sq1zo9nqzr1N1fyEH/gIAH6V32jeDYtBZTp3w60CIr0eAxhvzPNeinOcf1pRwPQfjR7Ri5DATU/EEIC/8InOAO0U8ZH86mXX9TU/vvDGqr/uhH/k1binHGaUtxRz+Q+XzMCfxfDaLum0LxBn0i055D/47XJ6v8ZDYqRZ/D3xhdkd3sWiX+RNekfTjvxxTg5H8RqbpjSaPA7/AOPvjJd5tvh/LZKve6gmdv5AVz158bPHN5jdPeaepI+WO3WIY787SRX1AHOACfwzTGCuTvRW+oBrNwb6milY+SNU+I2oX8rLeapqE8QI+R7kgkj8cY+lVbfX9HmZpVcgv8xDSBvKb0zjOD719dyWVjLxJZWzjuGhU/0qu/h3w7OCZ9B0uQn+9aRn+lZPD36l+1aPlE+IIySTaAk9wRiivqj/AIRHwl/0K+jf+Aaf4UUvq6H7Zn//2Q==" alt="Instax print of Buffy with her red ball" loading="lazy" />
           </div>
-          <figcaption>Buffy — Chief Encouragement Officer</figcaption>
         </figure>
         <div class="buffy-copy">
           <h2 data-reveal>Meet Buffy.</h2>
@@ -2465,7 +2385,7 @@ const layoutFan = (deal = false) => {
     count = 20;
   } else {
     const span = heap.clientWidth * 1.22;
-    count = Math.max(19, 1 + Math.round((span - cardW) / (cardW * 0.5)));
+    count = Math.max(9, 1 + Math.round((span - cardW) / (cardW * 0.5)));
     if (count % 2 === 0) count += 1; // odd count keeps one print dead centre
   }
 
