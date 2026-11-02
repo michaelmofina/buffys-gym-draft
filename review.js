@@ -5,19 +5,19 @@
   blok:{name:'Suisse Intl Medium',family:'Buffy Suisse Preview',weight:'500',url:'https://framerusercontent.com/assets/I60ut6HTqCBlIvR4XG6iFKT2oA.ttf'},
   dogpound:{name:'Chalet Comprimé Hong Kong Sixty',family:'Buffy Chalet Preview',weight:'400',url:'.review-fonts/chalet-preview.woff'}
  };
- const allowed=local?[...originals,...Object.keys(references),'mixed']:originals;
+ const allowed=[...originals,...Object.keys(references),'mixed'];
  const params=new URLSearchParams(location.search);
  let saved='barlow';try{saved=sessionStorage.getItem('buffy-heading')||saved;}catch{}
- const selected=allowed.includes(params.get('type'))?params.get('type'):local?'mixed':originals.includes(saved)?saved:'barlow';
+ const selected=allowed.includes(params.get('type'))?params.get('type'):'mixed';
  const loaded=new Map();let selection=selected;
- if(local){const sheet=document.createElement('link');sheet.rel='stylesheet';sheet.href='reference-type.css';document.head.append(sheet);}
+ {const sheet=document.createElement('link');sheet.rel='stylesheet';sheet.href='reference-type.css';document.head.append(sheet);}
  let panel;
  async function apply(value,explicit=false){
   selection=value;document.documentElement.dataset.type=value;
   if(originals.includes(value))try{sessionStorage.setItem('buffy-heading',value);}catch{}
   if(explicit){const url=new URL(location.href);url.searchParams.set('type',value);history.replaceState(null,'',url);}
   if(panel){panel.querySelectorAll('[data-type]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.type===value)));panel.querySelector('.reference-status').textContent='';}
-  if(!local||(!references[value]&&value!=='mixed'))return;
+  if(!references[value]&&value!=='mixed')return;
   const fonts=value==='mixed'?[references.dogpound,references.blok]:[references[value]];
   const status=panel?.querySelector('.reference-status');
   if(status)status.textContent='Loading reference fonts…';
