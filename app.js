@@ -275,12 +275,31 @@ window.addEventListener("resize", () => {
 // ---------------------------------------------------------------------------
 const menuBtn = document.querySelector(".menu-btn");
 const menu = document.querySelector(".menu");
-let menuCovered = [];
+let menuCovered = [], menuOpen = false, menuMotion = [], menuRevision = 0;
+const animateMenu = open => {
+  const revision=++menuRevision;
+  const items=[...menu.querySelectorAll('.menu-list a, .menu-footer')];
+  const panelState={opacity:getComputedStyle(menu).opacity,clipPath:getComputedStyle(menu).clipPath};
+  const itemStates=items.map(item=>({opacity:getComputedStyle(item).opacity,transform:getComputedStyle(item).transform}));
+  menuMotion.forEach(a=>a.cancel());menuMotion=[];
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finish=()=>{if(revision!==menuRevision)return;if(!open){menu.hidden=true;document.documentElement.classList.remove('menu-open');}};
+  if(reduced){finish();return;}
+  const panel=menu.animate(open ? [{opacity:1,clipPath:'inset(0 0 100% 0)'},{opacity:1,clipPath:'inset(0)'}] : [panelState,{opacity:0,clipPath:panelState.clipPath}],{duration:open?480:560,easing:open?'cubic-bezier(.22,1,.36,1)':'cubic-bezier(.4,0,.2,1)',fill:'both'});
+  menuMotion.push(panel);
+  items.forEach((item,i)=>{
+    menuMotion.push(item.animate(open ? [{opacity:0,transform:'translateY(22px)'},{opacity:1,transform:'translateY(0)'}] : [itemStates[i],{opacity:0,transform:itemStates[i].transform}],{duration:open?460:380,delay:open?100+i*45:(items.length-i-1)*18,easing:open?'cubic-bezier(.22,1,.36,1)':'cubic-bezier(.4,0,.2,1)',fill:'both'}));
+  });
+  Promise.all(menuMotion.map(a=>a.finished)).then(finish).catch(()=>{});
+};
 const setMenu = (open) => {
-  menu.hidden = !open;
+  menuOpen = open;
+  menu.hidden = false;
+  menu.inert = !open;
   menuBtn.setAttribute("aria-expanded", String(open));
   menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-  document.documentElement.classList.toggle("menu-open", open);
+  if(open)document.documentElement.classList.add("menu-open");
+  animateMenu(open);
   if (open) {
     menuCovered = [...document.body.children].filter(el =>
       !el.matches(".nav, .menu, script, style, link, .defs") && !el.inert);
@@ -292,10 +311,10 @@ const setMenu = (open) => {
     menuBtn.focus({preventScroll:true});
   }
 };
-menuBtn.addEventListener("click", () => setMenu(menu.hidden));
+menuBtn.addEventListener("click", () => setMenu(!menuOpen));
 const closeOnNavigation = e => {
   const link = e.target.closest("a");
-  if (!link || menu.hidden) return;
+  if (!link || !menuOpen) return;
   setMenu(false);
   const href = link.getAttribute("href");
   if (href?.startsWith("#")) {
@@ -310,7 +329,7 @@ const closeOnNavigation = e => {
 menu.addEventListener("click", closeOnNavigation);
 siteNav.addEventListener("click", closeOnNavigation);
 window.addEventListener("keydown", e => {
-  if (menu.hidden) return;
+  if (!menuOpen) return;
   if (e.key === "Escape") { e.preventDefault(); setMenu(false); }
   if (e.key === "Tab") {
     const controls = [...document.querySelectorAll(".nav a, .nav button, .menu a")]
@@ -499,6 +518,14 @@ function advanceTennisBall(s, dt, bounds, gravity, flat) {
 (() => {
   const layer = document.querySelector('.ball-layer'), ball = layer?.querySelector('.ball');
   if (!ball) return;
+  const home = layer.parentElement;
+  function roam(){
+    if(layer.classList.contains('is-roaming'))return;
+    const rect=ball.getBoundingClientRect();
+    document.body.append(layer);layer.classList.add('is-roaming');
+    state.x=rect.left+R;state.y=rect.top+R;draw();
+  }
+  function returnHome(){layer.classList.remove('is-roaming');home.append(layer);}
   const dog = layer.querySelector('.fetcher');
   const canvas = ball.querySelector('canvas'), tiltButton = layer.querySelector('.ball-tilt');
   const status = layer.querySelector('.ball-status');
@@ -524,7 +551,7 @@ function advanceTennisBall(s, dt, bounds, gravity, flat) {
     later(()=>{ball.classList.add('is-gone');status.textContent='Buffy got the ball.';},650);
     later(()=>dog.classList.remove('is-fetching'),1600);
     later(()=>{
-      state.x=clamp(layer.clientWidth*.72,R,bounds().x);state.y=bounds().y;
+      returnHome();state.x=clamp(layer.clientWidth*.72,R,bounds().x);state.y=bounds().y;
       resetFetch();draw();status.textContent='Good dog. Throw it again!';
     },2200);
   }
@@ -619,7 +646,7 @@ function advanceTennisBall(s, dt, bounds, gravity, flat) {
   }
   ball.addEventListener('pointerdown',e=>{
     if(paused || fetching || e.button!==0) return;
-    e.preventDefault();stop();held=true;pointer=e.pointerId;ball.setPointerCapture(pointer);
+    e.preventDefault();roam();stop();held=true;pointer=e.pointerId;ball.setPointerCapture(pointer);
     lastPointer={x:e.clientX,y:e.clientY,t:performance.now()};ball.classList.add('is-held');
   });
   ball.addEventListener('pointermove',e=>{
@@ -640,7 +667,7 @@ function advanceTennisBall(s, dt, bounds, gravity, flat) {
   ball.addEventListener('keydown',e=>{
     if(paused||fetching)return;
     const directions={ArrowLeft:[-420,0],ArrowRight:[420,0],ArrowUp:[0,-650],ArrowDown:[0,420],' ':[450,-650],Enter:[450,-650]};
-    if(!directions[e.key])return;e.preventDefault();[state.vx,state.vy]=directions[e.key];thrown=true;later(()=>{if(thrown&&!held&&!paused)fetchBall();},4200);run();
+    if(!directions[e.key])return;e.preventDefault();roam();[state.vx,state.vy]=directions[e.key];thrown=true;later(()=>{if(thrown&&!held&&!paused)fetchBall();},4200);run();
   });
   function disableTilt(message='Tilt off. Drag the ball to throw it.'){
     tilt=false;waitingForSensor=false;neutral=null;clearTimeout(sensorTimer);
@@ -753,3 +780,4 @@ function advanceTennisBall(s, dt, bounds, gravity, flat) {
     update();
   });
 })();
+

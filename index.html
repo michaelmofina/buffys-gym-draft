@@ -13,7 +13,7 @@
   <meta name="twitter:card" content="summary" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐾</text></svg>" />
   <link rel="stylesheet" href="fonts-inline.css" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=fcfc071bd7" />
   <script>document.documentElement.classList.add("js");</script>
 <meta name="robots" content="noindex, nofollow"></head>
 <body id="top">
@@ -168,19 +168,16 @@
           
 
           <div class="room-stage">
-            <div class="room-slide is-active" id="room-lounge" role="tabpanel" aria-labelledby="tab-lounge" data-room="The lounge">
-              <img class="room-scene" src="assets/client/room.jpg"
-                alt="The lounge: leather couch under the varsity logo mural, plants, and the new blue wall" />
+            <div class="room-slide is-active" id="room-private" role="tabpanel" aria-labelledby="tab-private" data-room="The private room">
+              <video class="room-scene" autoplay muted loop playsinline preload="auto" aria-label="A tour of the private training room" disablepictureinpicture disableremoteplayback>
+                <source src="assets/client/private-room.mp4" type="video/mp4" />
+              </video>
             </div>
-
+            <div class="room-slide" id="room-lounge" role="tabpanel" aria-labelledby="tab-lounge" data-room="The lounge" hidden>
+              <img class="room-scene" src="assets/client/lounge-november.jpg" alt="The lounge with Buffy's Gym mural, leather sofa, plants and glass coffee table" />
+            </div>
             <div class="room-slide" id="room-floor" role="tabpanel" aria-labelledby="tab-floor" data-room="The class floor" hidden>
-              <img class="room-scene" src="assets/raw/10-may06-photo.jpg" loading="lazy"
-                alt="The class floor: squat racks along the walls, a member mid-set" />
-            </div>
-
-            <div class="room-slide" id="room-private" role="tabpanel" aria-labelledby="tab-private" data-room="The private room" hidden>
-              <img class="room-scene" src="assets/raw/05-jun22-video.jpg" loading="lazy"
-                alt="The private room: whiteboard, shelving, and space for one-on-one sessions" />
+              <img class="room-scene" src="assets/raw/10-may06-photo.jpg" loading="lazy" alt="The class floor: squat racks along the walls, a member mid-set" />
             </div>
           </div>
 
@@ -193,12 +190,11 @@
         </div>
 
         <div class="room-tabs" role="tablist" aria-label="Rooms" data-reveal>
-          <button role="tab" id="tab-lounge" aria-controls="room-lounge" aria-selected="true" type="button" data-copy="room-02">The lounge</button>
+          <button role="tab" id="tab-private" aria-controls="room-private" aria-selected="true" type="button" data-copy="room-04">The private room</button>
+          <button role="tab" id="tab-lounge" aria-controls="room-lounge" aria-selected="false" tabindex="-1" type="button" data-copy="room-02">The lounge</button>
           <button role="tab" id="tab-floor" aria-controls="room-floor" aria-selected="false" tabindex="-1" type="button" data-copy="room-03">The class floor</button>
-          <button role="tab" id="tab-private" aria-controls="room-private" aria-selected="false" tabindex="-1" type="button" data-copy="room-04">The private room</button>
         </div>
-
-        <div class="room-description" aria-live="polite"><p data-room-description="0" data-copy="room-05">Our spacious entrance area is a great place to relax before or after your class. Grab a drink from the fridge and cool down, or just chill out while you make your next move.</p><p data-room-description="1" hidden data-copy="room-06">The class floor.</p><p data-room-description="2" hidden data-copy="room-07">The private room.</p></div>
+        <div class="room-description" aria-live="polite"><p data-room-description="0" data-copy="room-07">This is where our classes happen. Train alongside a small group, with a coach guiding every lift and plenty of room to find your stride.</p><p data-room-description="1" hidden data-copy="room-05">Our spacious entrance area is a great place to relax before or after your class. Grab a drink from the fridge and cool down, or just chill out while you make your next move.</p><p data-room-description="2" hidden data-copy="room-06">The class floor.</p></div>
       </div>
     </section>
 
@@ -378,8 +374,8 @@
   </footer>
 
 
-  <script src="review.js?v=960f83c"></script>
-  <script src="app.js"></script>
+  <script src="review.js?v=ab5bd669b5"></script>
+  <script src="app.js?v=ef34346f62"></script>
   <script src="copy-editor.js"></script>
 <script src="scan-treatment.js"></script>
 </body>

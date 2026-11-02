@@ -2082,3 +2082,19 @@ html[data-type='mixed'] .faq-item summary { font-family:'Buffy Suisse Preview',A
 [data-scroll-rail] img { -webkit-user-drag:none; user-select:none; }
 [data-scroll-rail]:focus-visible,.rail-controls button:focus-visible { outline:2px solid var(--ink); outline-offset:-3px; }
 @media(prefers-reduced-motion:reduce) { [data-scroll-rail] { scroll-behavior:auto; } }
+
+/* November refinements. */
+.nav-word { gap:0; }
+.nav-word .nav-mascot { margin-inline:-5px; z-index:1; }
+#vibe { padding-bottom:3rem; }
+#room { padding-top:3rem; }
+.classes { padding-bottom:3rem; }
+.team { padding-top:3rem; }
+.footer-playground { margin-top:20px; }
+.ball-layer.is-roaming { position:fixed; inset:0; z-index:1500; }
+.ball-layer.is-roaming .ball { width:clamp(88px,12vw,176px); height:clamp(88px,12vw,176px); }
+@media(max-width:600px) { .nav-word .nav-mascot { margin-inline:-4px; } .footer-playground { margin-top:16px; } .ball-layer.is-roaming .ball { width:80px; height:80px; } }
+
+
+/* The space gallery shares the soft corners of the blog cards. */
+.room-stage { border-radius:28px; overflow:hidden; }
