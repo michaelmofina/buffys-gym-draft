@@ -2098,3 +2098,33 @@ html[data-type='mixed'] .faq-item summary { font-family:'Buffy Suisse Preview',A
 
 /* The space gallery shares the soft corners of the blog cards. */
 .room-stage { border-radius:28px; overflow:hidden; }
+
+/* Keep Buffy opaque and in front of the tightly spaced wordmark. */
+.nav-word { isolation:isolate; }
+.nav-word > span:not(.nav-mascot) { position:relative; z-index:0; }
+.nav-word .nav-mascot,.overlay-nav .nav-mascot { mix-blend-mode:normal; z-index:2; margin-inline:-8px; }
+.footer-playground { margin-top:0; }
+@media(max-width:600px) { .footer-playground { margin-top:0; } }
+@media(max-width:600px) { .nav-word .nav-mascot { margin-inline:-6px; } }
+
+/* Let the closing wordmark reach both viewport edges. */
+.footer-playground { margin-left:-2.5vw; margin-right:-2.5vw; }
+.footer-wordmark { font-size:29.2vw; white-space:nowrap !important; }
+.footer-wordmark { width:max-content; text-align:left; transform-origin:left center; }
+
+.site-map{padding:48px max(24px,3.5vw);background:var(--band);color:var(--ink)}.site-map p{font-weight:600;margin:0 0 20px}.site-map div{display:flex;flex-wrap:wrap;gap:16px 32px}.site-map a{color:inherit;text-decoration:none}.site-map a:hover{text-decoration:underline}.site-map a:focus-visible{outline:2px solid currentColor;outline-offset:5px}
+
+/* A quiet editorial directory above the closing wordmark. */
+.site-map{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,140px);padding:64px max(24px,7.7vw) 72px;border-top:1px solid var(--paper-shadow)}
+.site-map .sitemap-intro{display:block}.sitemap-eyebrow{font:500 .7rem/1.4 var(--body);letter-spacing:.12em}.site-map .sitemap-intro p{font:500 clamp(28px,3.5vw,52px)/1.08 var(--body);letter-spacing:-.045em;margin:24px 0 32px}.site-map .sitemap-social{font-size:.85rem;border-bottom:1px solid currentColor;padding-bottom:4px}.site-map .sitemap-links{display:flex;flex-direction:column;gap:0}.sitemap-links a{display:flex;align-items:center;justify-content:space-between;padding:17px 0;border-bottom:1px solid var(--paper-shadow);font:500 clamp(24px,2.5vw,36px)/1.1 var(--body);letter-spacing:-.035em}.sitemap-links a:first-child{border-top:1px solid var(--paper-shadow)}.sitemap-links a span:last-child{font-size:24px;transition:transform .2s}.sitemap-links a:hover{text-decoration:none}.sitemap-links a:hover span:last-child{transform:translate(3px,-3px)}
+@media(max-width:600px){.site-map{grid-template-columns:1fr;padding:40px 24px;gap:32px}.site-map .sitemap-intro p{margin:16px 0 24px}.sitemap-links a{padding:16px 0}}
+
+/* Simple horizontal footer directory, inspired by the supplied reference. */
+.site-map{display:block;border:0;padding:48px 3.5vw 32px;background:var(--band)}
+.site-map .sitemap-links{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;gap:28px clamp(28px,5vw,80px)}
+.site-map .sitemap-links a,.site-map .sitemap-links a:first-child{border:0;padding:0;font:600 clamp(18px,1.6vw,26px)/1.3 var(--body);letter-spacing:-.025em}
+.site-map .sitemap-links a:hover{text-decoration:underline;text-underline-offset:6px}
+.footer-masthead{padding-top:24px}
+.overlay-nav .nav-book{display:inline-flex;background:var(--ink);color:var(--paper-warm);padding:15px 22px;border:1px solid var(--ink);border-radius:4px;font-size:.9rem;line-height:1.2}
+.overlay-nav .nav-book:hover{background:#333;color:var(--paper-warm);text-decoration:none}
+@media(max-width:600px){.overlay-nav{grid-template-columns:32px 1fr auto;gap:8px;padding-inline:16px}.overlay-nav .nav-word{font-size:22px}.overlay-nav .nav-mascot{width:39px;transform:scale(.8);margin-inline:-9px}.overlay-nav .nav-book{font-size:11px;padding:11px 10px;max-width:100px;text-align:center}.site-map{padding:36px 24px 20px}.site-map .sitemap-links{gap:22px 28px}.footer-masthead{padding-top:20px}}

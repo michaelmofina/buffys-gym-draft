@@ -1,8 +1,41 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Goals · Buffy's Gym</title><link rel="stylesheet" href="fonts-inline.css"><link rel="stylesheet" href="styles.css?v=fcfc071bd7"><link rel="stylesheet" href="pages.css"><meta name="robots" content="noindex, nofollow"></head><body>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Goals · Buffy's Gym</title><link rel="stylesheet" href="fonts-inline.css"><link rel="stylesheet" href="styles.css?v=e3a4bbb9be"><link rel="stylesheet" href="pages.css">
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '29647713458168837');
+fbq('track', 'PageView');
+</script>
+
+<meta name="robots" content="noindex, nofollow"></head><body><noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=29647713458168837&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
  <a href="#main" class="skip-link">Skip to content</a>
- <header class="nav"><a class="nav-word" href="index.html" aria-label="Buffy’s Gym"><span>Buffy’s</span><span class="nav-mascot" aria-hidden="true"><img src="brand/buffy-original.png" alt="" width="1500" height="1500" /></span><span>Gym</span></a><nav class="page-nav" aria-label="Main"><a href="index.html#classes">Classes</a><a href="blog.html" >Blog</a><a href="goals.html" aria-current="page">Goals</a></nav></header>
- <main id="main" class="page-main"><div class="wrap"><div class="goal-top"><div class="page-intro"><h1>Your goals.</h1><p>A place for what you're working towards.</p></div><button class="btn btn-solid" id="new-goal">Set a goal</button></div><p class="preview-note">Personal preview · goals save on this device. Shared member accounts aren't connected yet.</p><div class="goal-tabs" aria-label="Filter goals"><button data-filter="active" aria-pressed="true">In progress <span id="active-count">0</span></button><button data-filter="done" aria-pressed="false">Achieved <span id="done-count">0</span></button></div><div id="goal-list"></div><p role="status" id="goal-status" class="status-message"></p>
+   <header class="nav overlay-nav">
+    <a class="nav-word" href="index.html" aria-label="Buffy’s Gym"><span data-copy="brand-name-01">Buffy’s</span><span class="nav-mascot" aria-hidden="true"><img src="brand/buffy-original.png" alt="" width="1500" height="1500" /></span><span data-copy="brand-name-02">Gym</span></a>
+
+    <nav class="nav-links" aria-label="Main"><a href="index.html">Home</a><a href="pricing.html">Pricing</a><a href="goals.html">Goals</a><a href="blog.html">Blog</a></nav>
+
+    <a class="btn btn-solid nav-book" href="https://www.buffysgym.com" target="_blank" rel="noopener" data-copy="nav-07">Book a free class</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
+      <span class="menu-btn-label">Menu</span>
+      <span class="menu-btn-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+  </header>
+
+  <nav class="menu" id="site-menu" aria-label="Site menu" hidden>
+    <ul class="menu-list"><li><a href="index.html">Home</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="goals.html">Goals</a></li><li><a href="blog.html">Blog</a></li></ul>
+    <div class="menu-footer">
+      <a class="btn btn-solid" href="https://www.buffysgym.com" target="_blank" rel="noopener" data-copy="nav-15">Book a free class</a>
+      <p class="mono">965 College St, Toronto · <a href="https://www.instagram.com/buffysgym/" target="_blank" rel="noopener" data-copy="nav-16">@buffysgym</a></p>
+    </div>
+  </nav>
+
+<main id="main" class="page-main"><div class="wrap"><div class="goal-top"><div class="page-intro"><h1>Your goals.</h1><p>A place for what you're working towards.</p></div><button class="btn btn-solid" id="new-goal">Set a goal</button></div><p class="preview-note">Personal preview · goals save on this device. Shared member accounts aren't connected yet.</p><div class="goal-tabs" aria-label="Filter goals"><button data-filter="active" aria-pressed="true">In progress <span id="active-count">0</span></button><button data-filter="done" aria-pressed="false">Achieved <span id="done-count">0</span></button></div><div id="goal-list"></div><p role="status" id="goal-status" class="status-message"></p>
 <dialog id="goal-dialog" aria-labelledby="goal-dialog-title"><form id="goal-form"><div class="dialog-head"><h2 id="goal-dialog-title">Set a goal.</h2><button type="button" class="quiet-button" data-close>Cancel</button></div><label for="goal-title">What are you working towards?</label><input id="goal-title" placeholder="e.g. Deadlift 100 kg" maxlength="100" required><div class="form-row"><div><label for="goal-current">Current progress</label><input id="goal-current" type="number" min="0" step="any" value="0" required></div><div><label for="goal-target">Target</label><input id="goal-target" type="number" min="0.01" step="any" required></div></div><label for="goal-unit">Unit</label><select id="goal-unit"><option>kg</option><option>lb</option><option>reps</option><option>classes</option><option>minutes</option></select><label for="goal-date">Target date (optional)</label><input id="goal-date" type="date"><div class="editor-actions"><button class="btn btn-solid" type="submit">Save goal</button></div><p role="status" id="goal-form-status"></p></form></dialog>
 <dialog id="remove-dialog" aria-labelledby="remove-title"><h2 id="remove-title">Remove this goal?</h2><p>This removes the goal and its progress from this device.</p><div class="editor-actions"><button class="btn btn-solid" id="confirm-remove">Remove goal</button><button class="btn btn-ghost" id="cancel-remove">Keep goal</button></div></dialog></div></main>
- <footer class="footer"><p>Buffy's Gym · 965 College St, Toronto</p><a href="index.html#visit">Come meet the pack.</a></footer>
- <script src="review.js?v=ab5bd669b5"></script><script src="goals.js"></script></body></html>
+ <nav class="site-map" aria-label="Sitemap"><div class="sitemap-links"><a href="index.html">Home</a><a href="pricing.html">Pricing</a><a href="goals.html">Goals</a><a href="blog.html">Blog</a><a href="https://www.instagram.com/buffysgym/">Instagram</a></div></nav><footer class="footer"><p>Buffy's Gym · 965 College St, Toronto</p><a href="index.html#visit">Come meet the pack.</a></footer>
+ <script src="review.js?v=ab5bd669b5"></script><script src="goals.js"></script><script src="navigation.js"></script></body></html>

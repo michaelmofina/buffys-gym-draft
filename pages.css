@@ -69,3 +69,5 @@ dialog h2 { font-size:2.5rem; }
 }
 
 @media(max-width:600px) { .nav:not(.overlay-nav) { flex-wrap:wrap; gap:12px 24px; } }
+
+.pricing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:48px 0}.pricing-card{padding:32px;border:1px solid var(--paper-shadow);border-radius:28px;background:var(--paper-warm)}.pricing-card h2{font-size:2rem;line-height:1.1}.pricing-card dl{margin:32px 0}.pricing-card dl>div{border-top:1px solid var(--paper-shadow);padding:20px 0}.pricing-card dd{margin:8px 0 0;display:flex;flex-direction:column;gap:6px}.pricing-card strong{font-size:2rem}.pricing-card dd span,.pricing-note{font-size:.9rem}.pricing-note{max-width:680px;margin-bottom:48px}@media(max-width:900px){.pricing-grid{grid-template-columns:1fr}}

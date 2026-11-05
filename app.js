@@ -131,7 +131,12 @@ const heapRand = () => {
 
 // A loose perimeter collage leaves the centre free for the invitation.
 const heap = document.querySelector(".polaroids");
-let photoOffset = 70;
+const rotatingPhotos = [...HEAP_PHOTOS];
+for (let i = rotatingPhotos.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [rotatingPhotos[i], rotatingPhotos[j]] = [rotatingPhotos[j], rotatingPhotos[i]];
+}
+let photoOffset = 0;
 const layoutFan = () => {
   if (!heap) return;
   const phone = window.matchMedia("(max-width: 600px)").matches;
@@ -170,7 +175,7 @@ const layoutFan = () => {
   }
   positions.forEach(([x,y,rotation,scale],i)=>{
     const fig=document.createElement('figure');fig.className='polaroid bare square-print';fig.setAttribute('data-drag','');
-    const box=document.createElement('div');box.className='photo actual-photo';box.append(photoImage(HEAP_PHOTOS[(photoOffset+i)%HEAP_PHOTOS.length]));fig.append(box);
+    const box=document.createElement('div');box.className='photo actual-photo';box.append(photoImage(rotatingPhotos[(photoOffset+i)%rotatingPhotos.length]));fig.append(box);
     fig.style.setProperty('--card-w',(cardW*scale)+'px');
     fig.style.setProperty('--ox',(x*w-w/2)+'px');
     fig.style.setProperty('--oy',(y*h-cardH*scale/2)+'px');
@@ -235,7 +240,7 @@ const bindDrag = (el) => {
 
 // A few prints also live beside the stories and invitations further down.
 document.querySelectorAll("[data-wall-photo]").forEach((print) => {
-  const photo = HEAP_PHOTOS[Number(print.dataset.wallPhoto)];
+  const photo = rotatingPhotos[(Number(print.dataset.wallPhoto) + 28) % rotatingPhotos.length];
   if (!photo) return;
   const image = photoImage(photo);
   image.loading = "lazy";
@@ -273,74 +278,6 @@ window.addEventListener("resize", () => {
 // ---------------------------------------------------------------------------
 // Full-screen navigation, shared by desktop and mobile.
 // ---------------------------------------------------------------------------
-const menuBtn = document.querySelector(".menu-btn");
-const menu = document.querySelector(".menu");
-let menuCovered = [], menuOpen = false, menuMotion = [], menuRevision = 0;
-const animateMenu = open => {
-  const revision=++menuRevision;
-  const items=[...menu.querySelectorAll('.menu-list a, .menu-footer')];
-  const panelState={opacity:getComputedStyle(menu).opacity,clipPath:getComputedStyle(menu).clipPath};
-  const itemStates=items.map(item=>({opacity:getComputedStyle(item).opacity,transform:getComputedStyle(item).transform}));
-  menuMotion.forEach(a=>a.cancel());menuMotion=[];
-  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const finish=()=>{if(revision!==menuRevision)return;if(!open){menu.hidden=true;document.documentElement.classList.remove('menu-open');}};
-  if(reduced){finish();return;}
-  const panel=menu.animate(open ? [{opacity:1,clipPath:'inset(0 0 100% 0)'},{opacity:1,clipPath:'inset(0)'}] : [panelState,{opacity:0,clipPath:panelState.clipPath}],{duration:open?480:560,easing:open?'cubic-bezier(.22,1,.36,1)':'cubic-bezier(.4,0,.2,1)',fill:'both'});
-  menuMotion.push(panel);
-  items.forEach((item,i)=>{
-    menuMotion.push(item.animate(open ? [{opacity:0,transform:'translateY(22px)'},{opacity:1,transform:'translateY(0)'}] : [itemStates[i],{opacity:0,transform:itemStates[i].transform}],{duration:open?460:380,delay:open?100+i*45:(items.length-i-1)*18,easing:open?'cubic-bezier(.22,1,.36,1)':'cubic-bezier(.4,0,.2,1)',fill:'both'}));
-  });
-  Promise.all(menuMotion.map(a=>a.finished)).then(finish).catch(()=>{});
-};
-const setMenu = (open) => {
-  menuOpen = open;
-  menu.hidden = false;
-  menu.inert = !open;
-  menuBtn.setAttribute("aria-expanded", String(open));
-  menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-  if(open)document.documentElement.classList.add("menu-open");
-  animateMenu(open);
-  if (open) {
-    menuCovered = [...document.body.children].filter(el =>
-      !el.matches(".nav, .menu, script, style, link, .defs") && !el.inert);
-    menuCovered.forEach(el => el.inert = true);
-    menu.querySelector("a").focus({preventScroll:true});
-  } else {
-    menuCovered.forEach(el => el.inert = false);
-    menuCovered = [];
-    menuBtn.focus({preventScroll:true});
-  }
-};
-menuBtn.addEventListener("click", () => setMenu(!menuOpen));
-const closeOnNavigation = e => {
-  const link = e.target.closest("a");
-  if (!link || !menuOpen) return;
-  setMenu(false);
-  const href = link.getAttribute("href");
-  if (href?.startsWith("#")) {
-    const target = document.querySelector(href);
-    if (target) {
-      target.setAttribute("tabindex", "-1");
-      target.focus({preventScroll:true});
-      target.addEventListener("blur", () => target.removeAttribute("tabindex"), {once:true});
-    }
-  }
-};
-menu.addEventListener("click", closeOnNavigation);
-siteNav.addEventListener("click", closeOnNavigation);
-window.addEventListener("keydown", e => {
-  if (!menuOpen) return;
-  if (e.key === "Escape") { e.preventDefault(); setMenu(false); }
-  if (e.key === "Tab") {
-    const controls = [...document.querySelectorAll(".nav a, .nav button, .menu a")]
-      .filter(el => el.getClientRects().length && getComputedStyle(el).visibility !== "hidden");
-    const i = controls.indexOf(document.activeElement);
-    if (e.shiftKey && i <= 0) { e.preventDefault(); controls.at(-1).focus(); }
-    else if (!e.shiftKey && (i === controls.length - 1 || i === -1)) {
-      e.preventDefault(); controls[0].focus();
-    }
-  }
-});
 // Rebuild the photos at the mobile breakpoint without dismissing an open menu.
 mobile.addEventListener("change", () => layoutFan());
 
@@ -781,3 +718,22 @@ function advanceTennisBall(s, dt, bounds, gravity, flat) {
   });
 })();
 
+// Fit the visible glyph edges, including the font's side bearings.
+(() => {
+  const wordmark = document.querySelector('.footer-wordmark');
+  if (!wordmark) return;
+  const context = document.createElement('canvas').getContext('2d');
+  const fit = () => {
+    const style = getComputedStyle(wordmark);
+    context.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+    context.letterSpacing = style.letterSpacing;
+    const metrics = context.measureText(wordmark.textContent.trim());
+    const inkWidth = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
+    if (!inkWidth) return;
+    const scale = wordmark.parentElement.clientWidth / inkWidth;
+    wordmark.style.transform = `translateX(${metrics.actualBoundingBoxLeft * scale}px) scaleX(${scale})`;
+  };
+  document.fonts.ready.then(fit);
+  document.fonts.addEventListener('loadingdone', fit);
+  window.addEventListener('resize', fit);
+})();
